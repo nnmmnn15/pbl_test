@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mbti.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'result.css' %}">
+    <title>PBL</title>
+</head>
+<body>
+<section id="result_contents">
+    <div class="result_wrapper">
+        테스트 결과 페이지
+        <div class="share">
+            <div class="url">
+                <button class="copy_btn" type="button">URL 복사하기</button>
+            </div>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'index' %}">
+                <button type="button">테스트 다시 하기</button>
+            </a>
+        </div>
+    </div>
+</section>
+    <script src="{% static 'result.js' %}"></script>
+</body>
+</html>

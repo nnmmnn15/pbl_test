@@ -1,0 +1,118 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+   <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'mbti.css' %}">
+   <title>PBL</title>
+</head>
+<body>
+   <section id="test_page">    
+      <div class="test_wrapper">
+         <div class="start">
+            <div class="mainImg">
+               <img src="{% static 'img/main.png' %}" alt="">
+            </div>
+
+            <h4>내 축제 성향은 뭘까?
+               <br><br>축제 성향테스트!
+            </h4>
+
+            <button type="button" onclick='start()'>테스트 시작</button>
+         </div>
+         
+         <div class="question">
+            <h4 class="question_detail" id="title">1번 문제</h4>
+            <input id="type" type="hidden" value="EI">
+            <div class="btn_wrapper">
+               <button id="A" type="button">대답 E</button>
+               <button id="B" type="button">대답 I</button>
+            </div>
+            <div class = "p_bar"> <!--부트스트랩 프로그레스 바-->
+               <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  </div>
+               </div>
+               <p class="progress-txt">1/12</p> 
+            </div>
+         </div>
+
+         <div class="result_wrapper">
+            테스트 결과 페이지
+            <div class="share">
+               <div class="url">
+                  <button class="copy_btn" type="button">URL 복사하기</button>
+               </div>
+            </div>
+            <div class="buttons">
+               <a href="{% url 'index' %}">
+                  <button type="button">테스트 다시 하기</button>
+               </a>
+            </div>
+         </div>
+         
+      <input type="hidden" id="EI" value="0">
+      <input type="hidden" id="SN" value="0">
+      <input type="hidden" id="TF" value="0">
+      <input type="hidden" id="JP" value="0">
+   </section>
+
+
+<script>
+   function start() {
+      $(".start").hide();
+      $(".question").show();
+      next();
+   }
+
+   var num = 1; //현재 몇번 문제에 있는지를 나타내는 변수
+   var q = {
+      1: {"title": "축제 참여시 내가 선호하는 것은?", "type": "EI", "A": "기왕 참여하는거 적극적인 활동이 좋아!", "B": "축제는 좋지만 내가 나서는건 좀 그래.. 약간 부담스러워"} ,
+      2: {"title": "꽃이 만개하는 계절, 갑작스레 아름다운 꽃들이 보고싶어지면?", "type": "EI", "A": "꽃은 무조건 직접 봐야지!", "B": "내 방이 곧 무릉도원! 랜선 꽃놀이를 즐긴다."} ,
+      3: {"title": "축제 일정이 겹친다 나라면 어디를 갈까!", "type": "EI", "A": "사람들이 많아야 축제인 느낌이 들지! 북적북적한 곳으로 갈래", "B": "난 너무 복잡한건 버거워 ㅠㅠ 조금 조용한 곳으로 갈래"} ,
+      4: {"title": "축제가기 전날, 자기 전에 드는 생각은?", "type": "SN", "A": "내일 축제에 사람 많으려나...", "B": "우연히 방송 탔는데 막 나.. 캐스팅 되고., 막 나 연예인 되고 ㅎㅎ"} ,
+      5: {"title": "축제가 끝나고 친구랑 얘기할 때 나는?", "type": "SN", "A": "날씨 되게 좋았네~ 라고하며 주절주절 얘기한다", "B": "와 여기 진짜 할 거 많더라 진짜 재밌었다! "} ,
+      6: {"title": "축제를 즐기고 있는데 자꾸 시선이 느껴진다!", "type": "SN", "A": "왜 자꾸 쳐다보지.. 하고 시선을 피한다", "B": "자꾸 눈이 마주치네..? 나한테 관심이 있나? 두근두근"} ,
+      7: {"title": "한 번 참여해본 축제일 때 나는?", "type": "JP", "A": "한번 참여 해봤던 축제이니만큼 익숙한 루트로 빠르게 다니기?", "B": "새로운 부스도 많이 생겼네? 한번 가볼까?"} ,
+      8: {"title": "오랜만에 보는 친구와 약속이 생겼다 (축제 전날?)", "type": "JP", "A": "이미 전날에 뭐 입을지 다 준비해놨지~~", "B": "이따 날씨보고~ 나갈 준비 하면서 생각하지 뭐~"} ,
+      9: {"title": "가려고 했던 축제가 예상외로 규모가 작다.마침 근처에 다른 축제가 열린다 ", "type": "JP", "A": "계획은 지켜야지~ 조금 실망했지만 계획대로 움직인다", "B": "저기가 더 재밌어보인다! 라고 하며 다른 축제로 간다"} ,
+   }
+
+   function next() {
+      if (num == 10) {
+         var mbti = ""; 
+         ($("#EI").val() < 2) ? mbti += "I" : mbti += "E";
+         ($("#SN").val() < 2) ? mbti += "N" : mbti += "S";
+         ($("#JP").val() < 2) ? mbti += "P" : mbti += "J";
+
+         // window.location.href = "./pbl/result/" + mbti
+      } else {
+         $(".q-num").html('Q' + num);
+         $(".progress-txt").html(num + ' / 9');
+         $(".progress-bar").attr('style', 'width: calc(100/9*' + num + '%)');
+         $("#title").html(q[num]["title"]);
+         $("#type").val(q[num]["type"]);
+         $("#A").html(q[num]["A"]);
+         $("#B").html(q[num]["B"]);
+         num++;
+      }
+   }
+
+   $("#A").click(function () {
+      var type = $("#type").val();
+      var preValue = $("#" + type).val();
+      $("#" + type).val(parseInt(preValue) + 1);
+      next();
+   });
+   $("#B").click(function () {
+      next();
+   });
+</script>
+
+
+<script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
+</html>
